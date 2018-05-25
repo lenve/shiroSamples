@@ -72,21 +72,20 @@ public class ShiroDemo {
         log.info("User [" + currentUser.getPrincipal() + "] logged in successfully.");
 
         //test a role:
-        if (currentUser.hasRole("admin")) {
-            log.info("May the Schwartz be with you!");
+        if (currentUser.hasRole("普通用户")) {
+            log.info("这是一个普通用户");
         } else {
             log.info("Hello, mere mortal.");
         }
-        if (currentUser.isPermitted("lightsaber:wield")) {
-            log.info("You may use a lightsaber ring.  Use it wisely.");
+        if (currentUser.isPermitted("book:update")) {
+            log.info("具有book表的update权限");
         } else {
             log.info("Sorry, lightsaber rings are for schwartz masters only.");
         }
 
         //a (very powerful) Instance Level permission:
-        if (currentUser.isPermitted("winnebago:drive:eagle5")) {
-            log.info("You are permitted to 'drive' the winnebago with license plate (id) 'eagle5'.  " +
-                    "Here are the keys - have fun!");
+        if (currentUser.isPermitted("author:create")) {
+            log.info("具有author表的create权限");
         } else {
             log.info("Sorry, you aren't allowed to drive the 'eagle5' winnebago!");
         }
