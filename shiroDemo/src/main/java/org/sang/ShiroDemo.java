@@ -1,8 +1,11 @@
 package org.sang;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.converters.AbstractConverter;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.config.IniSecurityManagerFactory;
+import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
@@ -14,7 +17,24 @@ import org.slf4j.LoggerFactory;
  */
 public class ShiroDemo {
     private static final transient Logger log = LoggerFactory.getLogger(ShiroDemo.class);
+
     public static void main(String[] args) {
+        BeanUtilsBean.getInstance().getConvertUtils().register(new AbstractConverter() {
+            @Override
+            protected String convertToString(Object value) throws Throwable {
+                return ((Enum) value).name();
+            }
+
+            @Override
+            protected Object convertToType(Class type, Object value) throws Throwable {
+                return Enum.valueOf(type, value.toString());
+            }
+
+            @Override
+            protected Class getDefaultType() {
+                return null;
+            }
+        }, JdbcRealm.SaltStyle.class);
         // The easiest way to create a Shiro SecurityManager with configured
         // realms, users, roles and permissions is to use the simple INI config.
         // We'll do that by using a factory that can ingest a .ini file and
@@ -62,8 +82,7 @@ public class ShiroDemo {
             } catch (LockedAccountException lae) {
                 log.info("The account for username " + token.getPrincipal() + " is locked.  " +
                         "Please contact your administrator to unlock it.");
-            }
-            catch (AuthenticationException ae) {
+            } catch (AuthenticationException ae) {
             }
         }
 
