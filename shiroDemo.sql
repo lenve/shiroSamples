@@ -65,7 +65,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`username`,`password`,`password_salt`) values (1,'sang','cb5143cfcf5791478e057be9689d2360005b3aac951f947af1e6e71e3661bf95a7d14183dadfb0967bd6338eb4eb2689e9c227761e1640e6a033b8725fabc783',NULL);
+insert  into `users`(`id`,`username`,`password`,`password_salt`) values (1,'sang','a593ccad1351a26cf6d91d5f0f24234c6a4da5cb63208fae56fda809732dcd519129acd74046a1f9c5992db8903f50ebf3c1091b3aaf67a05c82b7ee470d9e58',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
