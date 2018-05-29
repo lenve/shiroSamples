@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>登录成功！</h1>
+<h3><a href="/logout">注销</a></h3>
 </body>
 </html>
