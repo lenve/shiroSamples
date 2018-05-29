@@ -25,13 +25,9 @@
     </bean>
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login.jsp"></property>
-        <property name="successUrl" value="/success.jsp"/>
-        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
         <property name="filterChainDefinitions">
             <value>
-                /login=anon
-                /**=authc
+                /**=authcBasic
             </value>
         </property>
     </bean>
