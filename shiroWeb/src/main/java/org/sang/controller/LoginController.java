@@ -1,12 +1,11 @@
 package org.sang.controller;
 
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by sang on 2018/5/29.
@@ -20,16 +19,15 @@ public class LoginController {
     }
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest req, Model model) {
-        String shiroLoginFailure = (String) req.getAttribute("shiroLoginFailure");
-        System.out.println(shiroLoginFailure);
-        if (UnknownAccountException.class.getName().equals(shiroLoginFailure)) {
-            model.addAttribute("error", "账户不存在!");
-        }
-        if (IncorrectCredentialsException.class.getName().equals(shiroLoginFailure)) {
-            model.addAttribute("error", "密码不正确!");
+    public String login(String username, String password) {
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            token.setRememberMe(true);
+            subject.login(token);
+            return "success";
+        } catch (AuthenticationException e) {
         }
         return "login";
     }
-
 }
