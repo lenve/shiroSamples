@@ -19,6 +19,7 @@
         </property>
         <property name="saltStyle" value="COLUMN"/>
         <property name="authenticationQuery" value="select password, username from users where username = ?"/>
+        <property name="permissionsLookupEnabled" value="true"/>
     </bean>
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
         <property name="realm" ref="jdbcRealm"/>
@@ -27,8 +28,13 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
         <property name="successUrl" value="/success.jsp"/>
+        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
         <property name="filterChainDefinitions">
             <value>
+                /admin.jsp=authc,roles[admin]
+                /user.jsp=authc,roles[user]
+                /userinfo.jsp=authc,perms[user:info]
+                /bookinfo.jsp=authc,perms[book:info]
                 /logout=logout
                 /**=authc
             </value>

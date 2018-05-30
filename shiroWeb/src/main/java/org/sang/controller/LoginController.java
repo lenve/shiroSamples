@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 
+    @RequestMapping("/")
+    public String index() {
+        return "success";
+    }
+
     @RequestMapping("/login")
     public String login(HttpServletRequest req, Model model) {
         String shiroLoginFailure = (String) req.getAttribute("shiroLoginFailure");
