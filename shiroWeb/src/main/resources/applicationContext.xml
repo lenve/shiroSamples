@@ -9,6 +9,9 @@
         <property name="password" value="${db.password}"/>
         <property name="url" value="${db.url}"/>
     </bean>
+    <bean class="org.apache.shiro.cache.ehcache.EhCacheManager" id="cacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+    </bean>
     <bean class="org.apache.shiro.realm.jdbc.JdbcRealm" id="jdbcRealm">
         <property name="dataSource" ref="dataSource"/>
         <property name="credentialsMatcher">
@@ -23,6 +26,7 @@
     </bean>
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
         <property name="realm" ref="jdbcRealm"/>
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>

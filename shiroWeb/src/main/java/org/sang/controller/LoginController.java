@@ -15,6 +15,9 @@ public class LoginController {
 
     @RequestMapping("/")
     public String index() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.checkRole("admin");
+        subject.checkPermission("book:info");
         return "success";
     }
 
